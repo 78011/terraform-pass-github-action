@@ -39,7 +39,7 @@ module "postgre"{
     postgre_administrator_login          = var.administrator_login
     postgre_administrator_login_password = var.administrator_login_password
     postgre_sku_name                     = "GP_Gen5_4"
-    postgre_version                      = "16"
+    postgre_version                      = "13"
     postgre_storage_mb                   = "640000"
 
     depends_on = [azurerm_resource_group.example]

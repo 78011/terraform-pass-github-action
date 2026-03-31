@@ -3,7 +3,7 @@ resource "azurerm_postgresql_flexible_server" "PostGre1" {
     name                   = var.postgre_name
     resource_group_name    = var.postgre_rg
     location               = var.postgre_location
-    version                = "16" # Version stable actuelle
+    version                = "13" # Version stable actuelle
     
     administrator_login    = var.postgre_administrator_login
     administrator_password = var.postgre_administrator_login_password
