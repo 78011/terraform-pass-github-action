@@ -1,29 +1,25 @@
-# Création du Plan App Service (La machine sous-jacente qui héberge le site)
-resource "azurerm_app_service_plan" "dev_app_service_plan" {
-    name                = var.app_service_plan_name
-    location            = var.app_service_plan_location
-    resource_group_name = var.app_service_plan_rg
+# modules/appservices/appservice.tf
 
-    sku {
-        tier = var.app_service_plan_tiers
-        size = var.app_service_plan_sku
-    }
+# NOUVEAU NOM : azurerm_service_plan (remplace app_service_plan)
+resource "azurerm_service_plan" "dev_plan" {
+    name                = var.service_plan_name
+    location            = var.service_plan_location
+    resource_group_name = var.service_plan_rg
+    os_type             = var.service_plan_os   # "Linux" ou "Windows"
+    sku_name            = var.service_plan_sku  # "S1", "P1v2", etc.
 }
 
-# Création de l'App Service (Le site web en lui-même)
-resource "azurerm_app_service" "dev_app_service" {
-    name                = var.app_service_name
-    location            = var.app_service_location
-    resource_group_name = var.app_service_rg
-    app_service_plan_id = azurerm_app_service_plan.dev_app_service_plan.id
+# NOUVEAU NOM : azurerm_linux_web_app (remplace app_service)
+resource "azurerm_linux_web_app" "dev_app" {
+    name                = var.app_name
+    location            = var.app_location
+    resource_group_name = var.app_rg
+    service_plan_id     = azurerm_service_plan.dev_plan.id
 
     site_config {
-        dotnet_framework_version = "v4.0"
-        scm_type                 = "LocalGit"
-    }
-
-    tags = {
-        environment = var.app_service_tag_env
+        application_stack {
+        node_version = "20-lts"  # Ou python_version, dotnet_version, etc.
+        }
     }
 
     app_settings = {
@@ -32,13 +28,16 @@ resource "azurerm_app_service" "dev_app_service" {
 
     connection_string {
         name  = "Database"
-        type  = "PostgreSQL" 
-        value = "Server=some-server.mydomain.com;Integrated Security=SSPI"
+        type  = "PostgreSQL"
+        value = "Server=${var.db_host};Database=lvmdb;..."
+    }
+
+    tags = {
+        environment = var.app_tag_env
     }
 }
 
-# La valeur de sortie qui remontera jusqu'au main.tf principal
-output "app_service_url" {
-    value       = azurerm_app_service.dev_app_service.default_site_hostname
-    description = "URL to connect to App Service"
+output "app_url" {
+    value       = azurerm_linux_web_app.dev_app.default_hostname
+    description = "URL de l'application"
 }

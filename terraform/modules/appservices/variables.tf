@@ -1,44 +1,49 @@
-variable "app_service_plan_name" {
+variable "service_plan_name" {
     description = "The name for our app service plan"
     type        = string
 }
 
-variable "app_service_plan_location" {
+variable "service_plan_location" {
     description = "The location of the app service plan"
     type        = string
 }
 
-variable "app_service_plan_rg" {
+variable "service_plan_rg" {
     description = "The resource group of the app_service_plan"
     type        = string
 }
 
-variable "app_service_plan_tiers" {
-    description = "The tiers of the app_service_plan"
+variable "service_plan_os" {
+    description = "The OS of the app service plan (e.g., Linux or Windows)"
     type        = string
 }
 
-variable "app_service_plan_sku" {
+variable "service_plan_sku" {
     description = "The sku of the app_service_plan"
     type        = string
 }
 
-variable "app_service_name" {
+variable "app_name" {
     description = "The name for our app service"
     type        = string
 }
 
-variable "app_service_location" {
+variable "app_location" {
     description = "The location of the app service"
     type        = string
 }
 
-variable "app_service_rg" {
+variable "app_rg" {
     description = "The resource group of the app_service"
     type        = string
 }
 
-variable "app_service_tag_env" {
+variable "app_tag_env" {
     description = "The environment tag of the app_service"
+    type        = string
+}
+
+variable "db_host" {
+    description = "L'adresse (FQDN) du serveur PostgreSQL"
     type        = string
 }

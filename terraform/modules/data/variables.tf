@@ -13,27 +13,12 @@ variable "postgre_rg" {
     type        = string
 }
 
-variable "postgre_administrator_login" {
+variable "postgre_login" {
     description = "The admin login of postgresql"
     type        = string
 }
 
-variable "postgre_administrator_login_password" {
+variable "postgre_password" {
     description = "The admin password of postgresql"
-    type        = string
-}
-
-variable "postgre_sku_name" {
-    description = "The sku of postgresql"
-    type        = string
-}
-
-variable "postgre_version" {
-    description = "The version of postgresql"
-    type        = string
-}
-
-variable "postgre_storage_mb" {
-    description = "The storage size of postgresql"
     type        = string
 }

@@ -1,12 +1,15 @@
+# azrprovider.tf
 terraform {
+    required_version = ">= 1.9.0"
+
     required_providers {
         azurerm = {
         source  = "hashicorp/azurerm"
-        version = "~> 2.46" # Version utilisée pour ce projet, tu peux ajuster selon tes besoins
+        version = "~> 4.0"   # CHANGÉ : était ~> 2.46
         }
     }
 
-    # La configuration de ton Backend personnel
+    # Backend Azure — inchangé, tes valeurs fonctionnent
     backend "azurerm" {
         resource_group_name  = "rg-gc-azr-tf"
         storage_account_name = "tfstateousmanedione2026"
@@ -15,7 +18,8 @@ terraform {
     }
 }
 
-# Configure the Microsoft Azure Provider
 provider "azurerm" {
-    features {}
+  features {}
+  # Les credentials viennent des variables d'environnement
+  # ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_TENANT_ID, ARM_SUBSCRIPTION_ID
 }

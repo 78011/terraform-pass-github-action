@@ -1,24 +1,33 @@
-# Création du Serveur Flexible (Standard actuel)
-resource "azurerm_postgresql_flexible_server" "PostGre1" {
+# modules/data/postgresql.tf
+
+# NOUVEAU : azurerm_postgresql_flexible_server (remplace postgresql_server)
+resource "azurerm_postgresql_flexible_server" "db" {
     name                   = var.postgre_name
     resource_group_name    = var.postgre_rg
     location               = var.postgre_location
-    version                = "13" # Version stable actuelle
-    
-    administrator_login    = var.postgre_administrator_login
-    administrator_password = var.postgre_administrator_login_password
+    version                = "16"  # Version 9.6 est dépréciée, utiliser 14, 15 ou 16
+    administrator_login    = var.postgre_login
+    administrator_password = var.postgre_password
 
-    storage_mb = 32768 # Taille minimale pour flexible (32 Go)
-    sku_name   = "B_Standard_B1ms" # Instance burstable économique
+    storage_mb   = 32768  # 32 Go minimum
+    sku_name     = "B_Standard_B1ms"  # SKU Burstable pour dev
+
+    backup_retention_days         = 7
+    geo_redundant_backup_enabled  = false  # Désactivé pour économiser
+
+    # En dev on peut laisser public, en prod ajouter delegated_subnet_id
+    public_network_access_enabled = true
 }
 
-resource "azurerm_postgresql_flexible_server_database" "PostGre1DB" {
+# NOUVEAU : azurerm_postgresql_flexible_server_database
+resource "azurerm_postgresql_flexible_server_database" "db" {
     name      = "lvmdb"
-    server_id = azurerm_postgresql_flexible_server.PostGre1.id
+    server_id = azurerm_postgresql_flexible_server.db.id
     charset   = "UTF8"
-    collation = "en_US.utf8"
+    collation = "en_US.utf8"  # Format différent de v2.x
 }
 
 output "postgre_fqdn" {
-    value = azurerm_postgresql_flexible_server.PostGre1.fqdn
+    value       = azurerm_postgresql_flexible_server.db.fqdn
+    description = "FQDN du serveur PostgreSQL"
 }
