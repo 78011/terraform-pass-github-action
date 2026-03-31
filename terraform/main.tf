@@ -16,8 +16,8 @@ module "appservice"{
     app_service_plan_name     = "plan-ousmane-dev"
     app_service_plan_location = azurerm_resource_group.example.location
     app_service_plan_rg       = azurerm_resource_group.example.name
-    app_service_plan_tiers    = "Standard"
-    app_service_plan_sku      = "S1"
+    app_service_plan_tiers    = "Free"      # Change 'Standard' par 'Free'
+    app_service_plan_sku      = "F1"        # Change 'S1' par 'F1'
 
     # ATTENTION : Ce nom génère l'URL de ton site, il doit être unique !
     app_service_name     = "webapp-ousmane-2026" 
