@@ -25,7 +25,7 @@ module "appservice" {
     service_plan_location = azurerm_resource_group.example.location
     service_plan_rg       = azurerm_resource_group.example.name
     service_plan_os       = "Linux"
-    service_plan_sku      = "S1"
+    service_plan_sku      = "F1"
 
     app_name     = "webapp-ousmane-2026"
     app_location = azurerm_resource_group.example.location

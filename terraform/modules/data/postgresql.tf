@@ -1,5 +1,15 @@
 # modules/data/postgresql.tf
 
+moved {
+  from = azurerm_postgresql_flexible_server.PostGre1
+  to   = azurerm_postgresql_flexible_server.db
+}
+
+moved {
+  from = azurerm_postgresql_flexible_server_database.PostGre1DB
+  to   = azurerm_postgresql_flexible_server_database.db
+}
+
 # NOUVEAU : azurerm_postgresql_flexible_server (remplace postgresql_server)
 resource "azurerm_postgresql_flexible_server" "db" {
     name                   = var.postgre_name

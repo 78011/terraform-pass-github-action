@@ -17,6 +17,8 @@ resource "azurerm_linux_web_app" "dev_app" {
     service_plan_id     = azurerm_service_plan.dev_plan.id
 
     site_config {
+        always_on = false  # F1 (Free) tier does not support always_on
+
         application_stack {
         node_version = "20-lts"  # Ou python_version, dotnet_version, etc.
         }

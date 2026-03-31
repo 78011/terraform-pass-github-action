@@ -1,5 +1,10 @@
 # modules/network/network.tf
 
+moved {
+  from = azurerm_virtual_network.vnet-hub
+  to   = azurerm_virtual_network.vnet
+}
+
 resource "azurerm_virtual_network" "vnet" {
   name                = var.network_name
   resource_group_name = var.network_rg
