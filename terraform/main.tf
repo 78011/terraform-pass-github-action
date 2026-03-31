@@ -32,6 +32,8 @@ module "appservice" {
     app_rg       = azurerm_resource_group.example.name
     app_tag_env  = "dev"
 
+    db_host      = module.postgre.postgre_fqdn
+    
     depends_on = [azurerm_resource_group.example]
 }
 
