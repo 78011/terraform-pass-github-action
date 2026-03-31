@@ -46,9 +46,10 @@ module "postgre"{
 }
 
 # 4. Groupe de ressources de l'application
+# Change "northeurope" par "westeurope" ou "francecentral"
 resource "azurerm_resource_group" "example" {
     name     = "rg-app-ousmane"
-    location = "northeurope"
+    location = "westeurope" 
 }
 
 # 5. Variables de sortie
